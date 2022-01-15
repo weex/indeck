@@ -292,7 +292,7 @@ function m.keypressed(k)
       lastEditor = editor
     end
     m.active = lastEditor
-  elseif k == 'ctrl+w' then       -- close current editor
+  elseif k == 'ctrl+q' then       -- close current editor
     local lastEditor
     for i, editor in ipairs(m) do
       if editor == m.active then
@@ -304,7 +304,7 @@ function m.keypressed(k)
     m.active = lastEditor
   elseif k == 'ctrl+shift+s' then -- store session
     m.storeSession('saved-session')
-  elseif k == 'ctrl+shift+l' then -- store session
+  elseif k == 'ctrl+shift+l' then -- restore session
     m.restoreSession('saved-session')
   end
 end
