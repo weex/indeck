@@ -52,6 +52,7 @@ local keymapping = {
   },
   macros = {
     ['ctrl+o']               = function(self) self:listFiles() end,
+    ['ctrl+n']               = function(self) self:newFile('Untitled.txt') end,
     ['ctrl+s']               = function(self) self:saveFile(self.path) end,
     ['ctrl+h']               = function(self) m.new(1, 1):listFiles('lovr-api') end,
     ['f3']                   = function(self) self:setHighlighting(not highlighted) end,
@@ -146,6 +147,19 @@ function m:openFile(filename_line)
   self.buffer:setName((coreFile and 'core! ' or '').. filename)
   self.path = filename
   self.buffer:jumpToLine(linenumber)
+  self:refresh()
+end
+
+
+function m:newFile(filename)
+  if lovr.filesystem.isFile(filename) then
+    return false, "file already exists, use self:newFile('filename')"
+  end
+  content = ''
+  print('file new', filename, 'size', #content)
+  self.buffer:setText(content)
+  self.buffer:setName(filename)
+  self.path = filename
   self:refresh()
 end
 
