@@ -88,7 +88,11 @@ function m.new(cols, rows, drawToken, drawRectangle, initialText)
         -- draw single line of text
         local lineTokens = self.lexed[currentLine]
         for j, token in ipairs(lineTokens) do
-          self.drawToken(token.data, x, y, token.type)
+          if highlighted then
+              self.drawToken(token.data, x, y, token.type)
+          else
+              self.drawToken(token.data, x, y, 'comment')
+          end
           --print('token',x,y)
           x = x + #token.data
         end

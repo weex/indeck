@@ -1,6 +1,7 @@
 -- editor is a floating pane of editable code that accepts keyboard input
 local m
 m = {}  -- this table stores functions under keys and also all editors in a list
+highlighted = true
 
 m.__index = m
 m.active = nil  -- the one editor which receives text input
@@ -53,6 +54,7 @@ local keymapping = {
     ['ctrl+o']               = function(self) self:listFiles() end,
     ['ctrl+s']               = function(self) self:saveFile(self.path) end,
     ['ctrl+h']               = function(self) m.new(1, 1):listFiles('lovr-api') end,
+    ['f3']                   = function(self) self:setHighlighting(not highlighted) end,
     ['f5']                   = function(self) lovr.event.push('restart') end,
     ['f10']                  = function(self) self:setFullscreen(not self.fullscreen) end,
     ['ctrl+shift+enter']     = function(self) self:execLine() end,
@@ -253,6 +255,10 @@ function m:refresh()
   end
 end
 
+-- ['f3']   = function(self) self:setHighlighting(not self.highlighted) end,
+function m:setHighlighting(isHighlighted)
+  highlighted = isHighlighted
+end
 
 function m:setFullscreen(isFullscreen)
   self.fullscreen = isFullscreen
